@@ -1,0 +1,258 @@
+.App {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #fff;
+  width:100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: calc(10px + 2vmin);
+}
+
+.logo{
+  width: 100px;
+  padding: 10px;
+  font-weight: 700;
+  font-size:20px;
+  text-transform: uppercase;
+}
+
+.logo label{
+  padding:5px;
+  letter-spacing: 2px;
+}
+
+.navbar{
+  display:flex;
+  justify-content: space-between;
+  width:550px;
+  padding: 10px;
+}
+
+.navbar .nav-list{
+  list-style: none;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.signupBtn{
+  background-color: #002ead;
+  padding: 15px;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: none;
+}
+
+.signupBtn:hover{
+  background-color: #0a0a23;
+  transition: 0.8s;
+}
+
+.navbar .nav-list .listItem{
+  padding: 15px;
+  text-decoration: none;
+  color: #0a0a23;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 2px;
+  font-weight:700
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.container{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.content-sidebar{
+  border: 3px solid#61dafb;
+  padding: 10px;
+  width: 400px;
+  height: 100px;
+  margin: auto 24px auto auto;
+}
+
+.content-sidebar p{
+  font-size: 30px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: auto;
+}
+
+.content-body{
+  padding: 10px;
+  width: 100%;
+}
+
+.questionCard,.user-accounts{
+  background-color: #C8D0D2;
+  padding: 5px;
+  max-height: 300px;
+  width: 90%;
+  min-height: 250px;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0));
+  transition: 2.5s;
+}
+
+.postedBy {
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 10px;
+  width: 80%;
+  margin-left: auto;
+  text-align: right;
+}
+
+.postedBy p label{
+  font-weight: 700;
+}
+
+.user-accounts {
+  width: 60% !important;
+  height: 400px !important;
+}
+
+.questionCard:hover{
+  cursor: pointer;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+
+}
+
+.questionCard.flip,.user-accounts.flip{
+  --rotate-y: 180deg;
+}
+
+.questionCard .front,.login{
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+  text-transform: capitalize;
+  word-wrap: break-word;
+  display: block;
+  font-size: 22px;
+  width: 90%;
+  backface-visibility: hidden;
+}
+
+form{
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+}
+
+
+
+.questionCard .front p{
+  display: flex;
+  justify-content: center;
+}
+.questionCard .front p label{
+  font-weight: 700;
+  margin-right: 20px;
+}
+
+.button{
+  padding: 10px;
+  background: #8064A2;
+  color: #fff;
+  font-weight:700;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 10px;
+}
+
+.actions{
+  display: flex;
+  justify-content: end;
+  padding: 5px;
+}
+
+.actions .edit{
+  background-color: #fff !important;
+  border-radius: none !important;
+  color: #0a0a23;
+  margin-right: 10px;
+}
+
+.actions .edit:hover{
+  background-color:  #8064A2 !important ;
+  color: #fff !important;
+}
+
+.actions .close{
+  background-color: brown !important;
+}
+
+.actions .close:hover{
+  color: #fff !important;
+}
+
+.button:hover{
+  background-color: #fff;
+  color: #8064A2;
+  border: 1px solid #8064A2 ;
+  transition: 0.8s;
+}
+
+.questionCard .back,.signup{
+  font-size: 30px;
+  display: block;
+  backface-visibility: hidden;
+  position: absolute;
+  text-align: center;
+  text-transform: capitalize;
+  width: 100%;
+}
+.questionCard .back,.signup {
+  transform: rotateY(180deg);
+}
+.input-group{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.input-group label{
+  width: 150px;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 16px;
+ 
+}
+
+.cards-grid{
+  display: grid;
+  grid-template-columns: 500px 500px;
+}
+
+.input-group input{
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+
+}
+
+
