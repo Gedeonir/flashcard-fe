@@ -2,14 +2,26 @@ import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@ap
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Routes from './routes'
-
+import {setContext} from '@apollo/client/link/context';
+import { AUTH_TOKEN } from './graphql_api/constants';
 
 const backendLink = createHttpLink({
   uri:"https://flashcard-be-api.herokuapp.com/"
 })
 
+const authLink = setContext((_,{headers})=>{
+  const token = localStorage.getItem(AUTH_TOKEN);
+
+  return{
+    headers:{
+      ...headers,
+      authorization:token ? `${token}` : ''
+    }
+  };
+});
+
 const client = new ApolloClient({
-  link:backendLink,
+  link:authLink.concat(backendLink),
   cache:new InMemoryCache()
 });
 
@@ -20,6 +32,5 @@ root.render(
   <ApolloProvider client={client}>
     <Routes />
   </ApolloProvider>
-
 );
 
