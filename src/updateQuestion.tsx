@@ -2,22 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN, QUESTION_ID } from './graphql_api/constants';
 import Header from './Header';
-import { UPDATE_QUESTION } from './graphql_api/api';
+import { UPDATE_QUESTION,SINGLE_Question_Query } from './graphql_api/api';
 import { useMutation, useQuery } from '@apollo/client';
+import { constants } from 'buffer';
 
 const Update=()=>{
   const token = localStorage.getItem(AUTH_TOKEN);
   const navigate = useNavigate();
-  const questionId = localStorage.getItem(QUESTION_ID);
-  
-  
-  const [error, setError] = useState("");
   const [state,setFormState] = useState({
-      question:"",
-      answer:"",
-      marks:""
-  }
-  );
+    question:"",
+    answer:"",
+    marks:""
+  });
+
+  let questionId: any = localStorage.getItem(QUESTION_ID); 
+ 
+  const id:Number = +questionId;
+  
+
+  const [error, setError] = useState(""); 
 
   const[message,setSuccesMessage] = useState("")
 
@@ -27,6 +30,18 @@ const Update=()=>{
       setError("")
     }
   });
+
+  const {data} = useQuery(SINGLE_Question_Query,{
+    variables:{
+      getSingleQuestionId:id
+    },
+    onCompleted: ({post}) => {
+      setError("")
+    }
+  });
+  
+  console.log(data)
+
 
 
   const {question,answer,marks} = state;
@@ -39,16 +54,16 @@ const Update=()=>{
 
   const handleSubmit =(e:any) => {
     e.preventDefault();
-    console.log(state)
+
     Update({
       variables: {
-        updateQuestionId:`${questionId}`,
+        updateQuestionId:id,
         question: `${state.question}`,
         correctAnswer: `${state.answer}`,
         weight: `${state.marks}`,
       },
     })
-    .then((data:any)=> console.log(data))
+    .then((data:any)=> data.json())
     .then(res=> console.log(res))
     .catch( err=>
       {
@@ -57,7 +72,6 @@ const Update=()=>{
       }
     );
   };
-
 
   return (
     <div className="App">
@@ -73,27 +87,37 @@ const Update=()=>{
             </div>
             <div className='postQuestionCard'>
               <div className='front'>
+                {data?(
                 <form onSubmit={handleSubmit}>
                   {error && <p className='error_txt'>{error}</p>}
                   {message && <p className='success_txt'>{message}</p>}
                   <div className='input-group'>
-                    <label>question:</label>
-                    <input type="text" name="question" onChange={(e) => handleChange(e)} value={question} placeholder='Enter you question' id='question' required></input>
+                    <label>ID:</label>
+                    <input type="text" value={questionId} disabled></input>
                   </div>
-                  <div className='input-group'>
-                    <label>Answer:</label>
-                    <input type="text" name="answer" onChange={(e) => handleChange(e)} value={answer} placeholder='Enter answer' id='answer' required></input>
-                  </div>
-                  <div className='input-group'>
-                    <label>Marks:</label>
-                    <input type="text" name="marks" onChange={(e) => handleChange(e)} value={marks} placeholder='Enter marks' id='marks' required></input>
-                  </div>
-                  <div className='actions'>
-                    <button className='button edit'>
-                      Update
-                    </button>
-                  </div>
+                    <div className='input-group'>
+                      <label>question:</label>
+                      <input type="text" name="question" onChange={(e) => handleChange(e)} defaultValue={data.getSingleQuestion.question} placeholder='Enter you question' id='question' required></input>
+                    </div>
+                    <div className='input-group'>
+                      <label>Answer:</label>
+                      <input type="text" name="answer" onChange={(e) => handleChange(e)} defaultValue={data.getSingleQuestion.correctAnswer} placeholder='Enter answer' id='answer' required></input>
+                    </div>
+                    <div className='input-group'>
+                      <label>Marks:</label>
+                      <input type="text" name="marks" onChange={(e) => handleChange(e)} defaultValue={data.getSingleQuestion.weight} placeholder='Enter marks' id='marks' required></input>
+                    </div>
+                    <div className='actions'>
+                      <button className='button edit'>
+                        Update
+                      </button>
+                    </div>                  
                 </form>
+                ):(
+                  <div>
+                    <p className='success_txt'>please wait  while fetching data</p>
+                  </div>
+                )}
               </div>
               </div></>
           )}

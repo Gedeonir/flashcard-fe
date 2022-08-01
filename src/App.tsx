@@ -36,6 +36,7 @@ function App() {
     onCompleted: ({post}) => {
       setSuccesMessage(" Card added successful")
       setError("")
+      window.location.reload();
     }
   });
 
